@@ -25,6 +25,7 @@ def make_key_result_plot() -> None:
         {"objective": "sharpe", "variable_weight": False, "label": "Sharpe EW", "color": "tab:blue"},
         {"objective": "sharpe", "variable_weight": True, "label": "Sharpe VW", "color": "tab:orange"},
         {"objective": "calmar", "variable_weight": False, "label": "Calmar EW", "color": "tab:green"},
+        {"objective": "calmar", "variable_weight": True, "label": "Calmar VW", "color": "tab:purple"},
     ]
 
     plt.figure(figsize=(12, 7))
