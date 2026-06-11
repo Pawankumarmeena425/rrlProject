@@ -1,0 +1,260 @@
+276             S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+
+
+                          Fig. 11. CLY ETF Signals generated from RRL-Sharpe.
+
+
+
+      Table 3
+      Long-short portfolio comparison with different learning objective functions. Note: EW and VW
+      represent Equally Weighted and Variable Weight strategies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 0 bps)               ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       3.1229     6.31 (3.11)                    0.5080            230
+       Sharpe ratio RRL VW       2.7630     8.24 (4.04)                    0.4363            230
+       Sterling ratio RRL EW     2.3780     12.99 (6.29)                   0.4699            235
+       Sterling ratio RRL VW     2.2816     13.83 (6.69)                   0.5262            235
+       Calmar ratio RRL EW       2.3245     16.39 (7.88)                   0.2721            221
+       Calmar ratio RRL VW       2.1781     19.65 (9.39)                   0.2675            221
+
+
+
+
+      Table 4
+      Long-short portfolio comparison with different learning objective functions and transaction
+      costs (δ = 10 bps). Note: EW and VW represent Equally Weighted and Variable Weight strate-
+      gies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 10 bps)              ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       1.6926     −2.77 (−1.39)                  0.9771            230
+       Sharpe ratio RRL VW       2.0105     −1.55 (−0.78)                  0.8575            230
+       Sterling ratio RRL EW     1.8071     3.67 (1.82)                    0.9968            235
+       Sterling ratio RRL VW     1.5061     3.46 (1.71)                    1.0 0 0 0         235
+       Calmar ratio RRL EW       2.5760     7.63 (3.74)                    0.4914            221
+       Calmar ratio RRL VW       2.3367     9.75 (4.76)                    0.4692            221
+
+
+
+
+      Table 5
+      Long-short portfolio comparison with different learning objective functions and transaction
+      costs (δ = 15 bps). Note: EW and VW represent Equally Weighted and Variable Weight strate-
+      gies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 15 bps)              ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       0.4669     −7.31 (−3.72)                  0.9960            230
+       Sharpe ratio RRL VW       0.6165     −6.45 (−3.28)                  0.9878            230
+       Sterling ratio RRL EW     0.3943     −0.99 (−0.50)                  0.9931            235
+       Sterling ratio RRL VW     0.1044     −1.73 (−0.87)                  0.9769            235
+       Calmar ratio RRL EW       2.6433     3.25 (1.61)                    0.7116            221
+       Calmar ratio RRL VW       2.3925     4.79 (2.37)                    0.6619            221
+                                            S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                          277
+
+
+                                Table 6
+                                Long-short portfolio comparison with different learning objective functions and transaction
+                                costs (δ = 20 bps). Note: EW and VW represent Equally Weighted and Variable Weight strate-
+                                gies, respectively.
+
+                                  L/S portfolio             Sharpe       Return (%)                      Maximum         Num.
+                                  (δ = 20 bp)               ratio        accumulative (annualized)       drawdown        of trades
+
+                                  Sharpe ratio RRL EW       −0.2281      −11.85 (−6.11)                  0.9661          230
+                                  Sharpe ratio RRL VW       −0.2551      −11.35 (−5.84)                  0.9630          230
+                                  Sterling ratio RRL EW     −0.5334      −5.65 (−2.87)                   0.9973          235
+                                  Sterling ratio RRL VW     −0.7198      −6.91 (−3.52)                   0.9869          235
+                                  Calmar ratio RRL EW       2.1424       −1.13 (−0.57)                   0.8966          221
+                                  Calmar ratio RRL VW       2.1320       −0.16 (−0.08)                   0.9990          221
+
+
+
+
+                                                          Fig. 12. RRL based trading decision system.
+
+
+
+The recurrent reinforcement learning system is a recursive learn-                          Table 7
+                                                                                           Portfolio comparison with hedge funds and buy & hold strategy.
+ing system, where the system learns from every output every time
+step. In this system, the trader can select an objective function that                       Portfolio                   Sharpe      Return (%)      Maximum
+would be the best for the assets of his portfolio. The system pa-                                                        ratio       Accu. (Ann.)    drawdown
+rameters are trained based on the objective function desired. We                             Calmar ratio RRL VW         1.93        28.6 (13.4)     0.1474
+have introduced three objective functions and showed the differ-                             SRUSOGP                     1.71        9.29 (4.54)     0.7384
+ence based on a portfolio of ﬁve commonly traded ETFs. In a paper                            HFRIEHI                     1.17        0.82 (0.41)     0.8745
+                                                                                             Buy & hold                  0.62        −5.25 (−2.66)   0.9728
+by DeMiguel, Garlappi, and Uppal (2009), the authors showed that
+an equally weighted portfolio can be an eﬃcient portfolio and they
+compared it to other strategies. In our trading system the default
+choice of the portfolio weights is the equally weighted portfolio.                  no stop-loss during the training phase. In a real trading system, the
+In Fig. 12, we show the design of the trading system where the                      investor would be able to estimate their transaction costs based on
+user will select the objective function (the Sharpe Ratio, the Cal-                 their past trading records, and these costs can change from period
+mar Ratio, and the Sterling Ratio) that the RRL system will maxi-                   to period on the same set of assets. The proposed system will then
+mize, and the assets along with the time frame T of the prices. The                 be able to adapt to these changes through retraining the system
+user will also select the number of decision steps M where M < T.                   with a new cost estimation. The system recommends that the user
+The data of the assets will be gathered from Yahoo Finance. The                     utilize the Calmar ratio as the objective function when δ ≥ 15bps
+RRL system will learn and train the parameters using the historical                 per share, where using this objective function will help the system
+returns of time T. After training, the system will allow the user to                endure the transaction cost effect. Also, if the investor is concerned
+deﬁne the asset allocation from two types of strategic asset alloca-                about the drawdown of the portfolio, the Calmar ratio is perfect
+tion (Equally Weighted Portfolio (default), RRL Deﬁned Portfolio).                  due to the fact that the system will be trained to minimize the
+The RRL system will output the long and short decisions of each                     expected maximum drawdown.
+asset along with the strategic allocation. The system will ask the                      In Fig. 13, we compare the performance of the CR-RRL variable
+investor if he would like to use the dynamic stop-loss exit strategy                weights (L/S) portfolio with Hedge Fund Research’s HFRI Equity
+which will stop the trading and go to retraining the system again.                  Hedge Index (HFRIEHI) and Sunrise’s U.S. Equity Optimized Growth
+If the investor does not want to use the stop-loss then the output                  Program (SGUSOGP) hedge fund, on a monthly basis over two
+will be stored for the next use of the system where it will continue                years (2014–2015) with δ = 1 bp and μ = 100. Table 7 shows the
+to learn from the given outputs. The system is trained with a pre-                  comparison in performance between the CR-RRL variable weights
+deﬁned transaction cost of δ = 10 bps per share and μ = 100 with                    long/short portfolio, the HFRI Equity Hedge Index, and the Sunrise
+278                                     S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+
+
+                                        Fig. 13. CR-RRL variable weights portfolio vs. hedge funds (24 months).
+
+
+
+
+                                             Fig. 14. CR-RRL variable weightes with stop-loss (104 weeks).
+
+
+
+U.S. equity hedge fund. This table shows that the CR-RRL portfolio                   Table 8
+                                                                                     Calmar ratio recurrent reinforcement learning (CR-RRL) portfolio compar-
+is outperforming in terms of Sharpe ratio, annualized return and
+                                                                                     ison with/without stop-loss and different transaction costs (δ ).
+maximum drawdown. In this comparison, we highlight the perfor-
+mance of the Calmar ratio RRL system for investors’ portfolio de-                      Portfolio        Sharpe       Return (%)      Maximum     Num.
+                                                                                       (δ = 0 bps)      ratio        accu. (ann.)    drawdown    of trades
+signs.
+                                                                                       Stop-Loss        1.9915       29.65 (13.87)   0.2279      230
+                                                                                       No Stop-Loss     2.1781       19.65 (9.39)    0.2675      221
+5.1. Dynamic stop−loss strategy                                                        Portfolio        Sharpe       Return (%)      Maximum     Num.
+                                                                                       (δ = 10 bps)     ratio        accu. (ann.)    drawdown    of trades
+   The stop-loss strategy used in the RRL trading decision sys-                        Stop-Loss        2.0852       19.27 (9.21)    0.3628      230
+tem is a simple dynamic stop-loss strategy. The notion of the sim-                     No Stop-Loss     2.3367       9.75 (4.76)     0.4692      221
+ple dynamic stop-loss is introduced by Chevallier, Ding, and Ielpo                     Portfolio        Sharpe       Return (%)      Maximum     Num.
+(2012) where they applied it to a long-only portfolio. Here we ap-                     (δ = 15 bps)     ratio        accu. (ann.)    drawdown    of trades
+ply the concept in our trading system using the cumulative return                      Stop-Loss        2.1752       14.08 (6.81)    0.5083      230
+in Eq. (13):                                                                           No Stop-Loss     2.3925       4.79 (2.37)     0.6619      221
+                                                                                       Portfolio        Sharpe       Return (%)      Maximum     Num.
+rt−1                                                                                   (δ = 20 bps)     ratio        accu. (ann.)    drawdown    of trades
+       ≤ −n                                                         (13)
+σt−1                                                                                   Stop-Loss        2.2958       8.90 (4.35)     0.7844      230
+                                                                                       No Stop-Loss     2.1320       -0.16 (-0.08)   0.9990      221
+where rt−1 is the cumulative return up to time t − 1, σt−1 is the
+                                                                                       Portfolio        Sharpe       Return (%)      Maximum     Num.
+moving volatility up to time t − 1, and n is the number of volatil-                    (δ = 25 bps)     ratio        accu. (ann.)    drawdown    of trades
+ity days prompting stop-loss. The stop-loss is applied only during
+                                                                                       Stop-Loss        2.1382       3.71 (1.84)     0.9550      230
+the testing phase at the decision making process; it is not used                       No Stop-Loss     1.0273       −5.11 (−2.59)   0.9550      221
+for training the parameters of the recurrent reinforcement learn-
+ing model. In Fig. 14, we show the stop-loss strategy effect on
+returns of the CR-RRL portfolio where the CR-RRL portfolio with
+stop-loss exits the market in week 91 and stops trading. The sys-                  From Table 8, we see that the stop-loss will be able to make
+tem will retrain the parameters based on the latest market move-                the portfolio endure higher transaction costs in the case that δ ≥
+ments. In Table 8, we show the Sharpe ratio with a stop-loss for                25 bps as the stop-loss strategy will exit the market when the
+CR-RRL equally weighted portfolio with different transactions costs             volatility is high, and retrain the parameters of the model, and
+compared.                                                                       then generate new signals to reenter the market. The training of
+                                                        S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                                   279
+
+
+the new parameters will be done using the latest returns until the                              Chen, B., Lin, Y., Zeng, W., Xu, H., & Zhang, D. (2017). The mean-variance cardinality
+exit point to handle changing market conditions.                                                    constrained portfolio optimization problem using a local search-based multi-ob-
+                                                                                                    jective evolutionary algorithm. Applied Intelligence, 1–21.
+                                                                                                Chevallier, J., Ding, W., & Ielpo, F. (2012). Implementing a simple rule for dynamic
+6. Conclusion                                                                                       stop-loss strategies. The Journal of Investing, 21(4), 111–114.
+                                                                                                DeMiguel, V., Garlappi, L., & Uppal, R. (2009). Optimal versus naive diversiﬁcation:
+                                                                                                    How ineﬃcient is the 1/n portfolio strategy? Review of Financial Studies, 22(5),
+    In this paper, we use the recurrent reinforcement learning
+                                                                                                    1915–1953.
+method to solve a dynamic portfolio optimization problem where                                  Dempster, M. A., & Leemans, V. (2006). An automated fx trading system using adap-
+we develop four portfolios using the RRL and compare them with                                      tive reinforcement learning. Expert Systems with Applications, 30(3), 543–552.
+each other and the buy & hold portfolio. We use RRL methods to                                  Eilers, D., Dunis, C. L., von Mettenheim, H.-J., & Breitner, M. H. (2014). Intelligent
+                                                                                                    trading of seasonal effects: A decision support algorithm based on reinforce-
+optimize the portfolio weights and rebalance the portfolio over a                                   ment learning. Decision Support Systems, 64, 100–108.
+predeﬁned time horizon. We compare the deferential of the Sharpe                                Feuerriegel, S., & Prendinger, H. (2016). News-based trading strategies. Decision Sup-
+ratio and the Calmar ratio as the objective functions in the recur-                                 port Systems, 90, 65–74.
+                                                                                                Gold, C. (2003a). Fx trading via recurrent reinforcement learning. In Computational
+rent reinforcement learning process and examine the performance                                     intelligence for ﬁnancial engineering, 2003. proceedings. 2003 IEEE international
+effect by the transaction costs. We compare the performance dif-                                    conference on (pp. 363–370). IEEE.
+ferences between the Sterling ratio proposed by Moody and Saf-                                  Gold, C. (2003b). FX trading via recurrent reinforcement learning. In IEEE/IAFE con-
+                                                                                                    ference on computational intelligence for ﬁnancial engineering, proceedings (cifer):
+fell (2001) where they deﬁned the downside risk as an exponen-                                      2003 (pp. 363–370).
+tial moving average of drawdown. Due to its lack of necessary sta-                              Gorse, D. (2010). Application of stochastic recurrent reinforcement learning to index
+tistical properties, the Sterling ratio based RRL suffers computa-                                  trading. In ESANN 2011 proceedings, 19th European symposium on artiﬁcial neural
+                                                                                                    networks, computational intelligence and machine learning (pp. 123–128).
+tional breakdowns during the optimization process. More impor-
+                                                                                                Hens, T., & Wöhrmann, P. (2007). Strategic asset allocation and market timing: A
+tantly, it neutralizes the downside risks and therefore it is lim-                                  reinforcement learning approach. Computational Economics, 29(3-4), 369–381.
+ited in reaching an optimal trading strategy. Through backtesting                               Keim, D. B., & Madhavan, A. (1998). The cost of institutional equity trades. Financial
+                                                                                                    Analysts Journal, 54(4), 50–69.
+of the constructed portfolio using ETFs, we conclude that: a) vari-
+                                                                                                Liagkouras, K., & Metaxiotis, K. (2016). A new eﬃciently encoded multiobjective al-
+able weight long/short portfolios outperform the equally weighted                                   gorithm for the solution of the cardinality constrained portfolio optimization
+long/short portfolios; b) the RRL Calmar ratio based portfolios out-                                problem. Annals of Operations Research, 1–39.
+perform the RRL Sharpe ratio based portfolios consistently; c) the                              Lwin, K., Qu, R., & Kendall, G. (2014). A learning-guided multi-objective evolution-
+                                                                                                    ary algorithm for constrained portfolio optimization. Applied Soft Computing, 24,
+E(MDD) RRL based trading system with market condition stop-loss                                     757–772.
+retraining responds to transaction cost effects better and outper-                              Madhavan, A. N. (2002). Implementation of hedge fund strategies. Special Issues
+forms hedge fund benchmarks consistently. Overall, we show that                                     (Hedge Fund Strategies), 2002(1), 74–80.
+                                                                                                Magdon-Ismail, M., Atiya, A., Pratap, A., & Abu-Mostafa, Y. (2003). The maximum
+the portfolios constructed using RRL with the expected maximum                                      drawdown of the brownian motion. In Computational intelligence for ﬁnancial en-
+drawdown based Calmar ratio result in a signiﬁcantly superior per-                                  gineering, 2003. proceedings. 2003 IEEE international conference on (pp. 243–247).
+formance and are more transaction cost resilient than the portfo-                                   IEEE.
+                                                                                                Magdon-Ismail, M., & Atiya, A. F. (2004). Maximum drawdown. Risk Magazine,
+lios constructed with the Sharpe ratio.                                                             17(10), 99–102.
+    In addition, we propose an adaptive trading decision system                                 Maringer, D., & Ramtohul, T. (2010). Threshold recurrent reinforcement learning
+based on the proposed RRL portfolio rebalance strategies with both                                  model for automated trading. Lecture Notes in Computer Science (including sub-
+                                                                                                    series Lecture Notes in Artiﬁcial Intelligence and Lecture Notes in Bioinformatics),
+transaction costs and market condition changes, and we show that
+                                                                                                    6025 LNCS(PART 2), 212–221.
+the system consistently outperforms the benchmark and hedge                                     Maringer, D., & Ramtohul, T. (2012). Regime-switching recurrent reinforcement
+fund industry average index. We speciﬁcally demonstrate how this                                    learning for investment decision making. Computational Management Science,
+                                                                                                    9(1), 89–107.
+expected maximum drawdown based reinforcement learning ap-
+                                                                                                Markowitz, H. (1952). Portfolio selection. The Journal of Finance, 7(1), 77–91.
+proach can ﬁlter market noise and identify the signiﬁcant trading                               Martinez, L. C., da Hora, D. N., Palotti, J. R. d. M., Meira, W., & Pappa, G. L. (2009).
+signals, and how the trading decision system with transaction cost                                  From an artiﬁcial neural network to a stock market day-trading system: A case
+and stop-loss retraining can adapt to different market conditions.                                  study on the bm&f bovespa. In Neural networks, 2009. IJCNN 2009. international
+                                                                                                    joint conference on (pp. 2006–2013). IEEE.
+    For future studies, we plan to deﬁne a relative strength perfor-                            Mittermayer, M.-A. (2004). Forecasting intraday stock price trends with text min-
+mance measure using the expected maximum drawdown to mini-                                          ing techniques. In system sciences, 2004. proceedings of the 37th annual hawaii
+mize tracking errors with respect to certain benchmarks. We also                                    international conference on (pp. 10–pp). IEEE.
+                                                                                                Moody, J., & Saffell, M. (2001). Learning to trade via direct reinforcement. IEEE Trans-
+believe that logsig, softmax RRL model can be extended by adding                                    actions on Neural Networks, 12(4), 875–889.
+layers to the model in order to help make a good variable weight                                Moody, J., Wu, L., Liao, Y., & Saffell, M. (1998). Performance functions and reinforce-
+decision. The Calmar ratio using the expected maximum draw-                                         ment learning for trading systems and portfolios. Science, 17(February 1997),
+                                                                                                    441–470.
+down can be applied in other reinforcement learning models and                                  Moral-Escudero, R., Ruiz-Torrubiano, R., & Suárez, A. (2006). Selection of optimal
+on a large set of asset classes.                                                                    investment portfolios with cardinality constraints. In Evolutionary computation,
+                                                                                                    2006. CEC 2006. IEEE congress on (pp. 2382–2388). IEEE.
+References                                                                                      Pratap, A. (2004). Maximum drawdown of a Brownian motion and AlphaBoost: a
+                                                                                                    boosting algorithm. California Institute of Technology Ph.D. thesis..
+Beraldi, P., Violi, A., & De Simone, F. (2011). A decision support system for strategic         Pu, Q., Ananthanarayanan, G., Bodik, P., Kandula, S., Akella, A., Bahl, P., . . . Schmid-
+    asset allocation. Decision Support Systems, 51(3), 549–561.                                     huber, J. (2016). Using a genetic algorithm to improve recurrent reinforcement
+Bertoluzzo, F., & Corazza, M. (2008). Financial trading systems: Is recurrent rein-                 learning for equity trading. Computational Economics, 47(4), 421–434.
+    forcement learning the way? In Reﬂexing interfaces: The complex coevolution of              Silva, A., Neves, R., & Horta, N. (2015). A hybrid approach to portfolio composition
+    information technology ecosystems (pp. 246–256). IGI Global.                                    based on fundamental and technical indicators. Expert Systems with Applications,
+Bertsekas, D. P. (1995). Dynamic programming and optimal control: 1. Athena Scien-                  42(4), 2036–2048.
+    tiﬁc Belmont, MA.                                                                           Sutton, R. S., & Barto, A. G. (1998). Reinforcement learning: An introduction: 1. MIT
+Bhansali, V. (2007). Putting economics (back) into quantitative models. The Journal                 press Cambridge.
+    of Portfolio Management, 33(3), 63–76.                                                      Sutton, R. S., Barto, A. G., & Williams, R. J. (1992). Reinforcement learning is direct
+Cavalcante, R. C., Brasileiro, R. C., Souza, V. L., Nobrega, J. P., & Oliveira, A. L. (2016).       adaptive optimal control. IEEE Control Systems, 12(2), 19–22.
+    Computational intelligence and ﬁnancial markets: A survey and future direc-                 Tan, Z., Quek, C., & Cheng, P. Y. (2011). Stock trading with cycles: A ﬁnancial ap-
+    tions. Expert Systems with Applications, 55, 194–211.                                           plication of anﬁs and reinforcement learning. Expert Systems with Applications,
+Chan, L. K. C., & Lakonishok, J. (1997). Institutional equity trading costs: NYSE versus            38(5), 4741–4755.
+    nasdaq. The Journal of Finance, 52(2), 713–735.                                             Tetlock, P. C., Saar-Tsechansky, M., & Macskassy, S. (2008). More than words: Quan-
+Chande, T. S. (2001). Beyond technical analysis: How to develop and implement a win-                tifying language to measure ﬁrms’ fundamentals. The Journal of Finance, 63(3),
+    ning trading system: 101. John Wiley & Sons.                                                    1437–1467.
+Chang, T.-J., Meade, N., Beasley, J. E., & Sharaiha, Y. M. (20 0 0). Heuristics for car-        Zimmermann, H., Drobetz, W., & Oertmann, P. (2003). Global asset allocation: New
+    dinality constrained portfolio optimisation. Computers & Operations Research,                   methods and applications: 197. John Wiley & Sons.
+    27(13), 1271–1302.
+

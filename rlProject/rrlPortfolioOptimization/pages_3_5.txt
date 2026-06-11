@@ -1,0 +1,245 @@
+                                         S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                                 269
+
+
+t − 1 signal. Hens and Wöhrmann (2007) applied recurrent rein-
+forcement learning on a long-term equity and bond portfolio, as-
+suming a rational investor with a constant risk aversion and a
+power utility function. Bertoluzzo and Corazza (2008) developed
+an artiﬁcial neural network based on reinforcement learning algo-
+rithm using the reciprocal of the returns weighted direction sym-
+metry index as the measure of proﬁtability. They proposed a pro-
+cedure for the management of drawdown like phenomena, and
+concluded that one can take into account a drawdown like phe-
+nomenon in the learning process.
+    In general, most of the current studies on trading decision
+systems agree that there are a number of critical components
+that need to be considered in developing such systems in ad-
+dition to the core algorithms. If not adequately designed, these
+factors can signiﬁcantly compromise the advantages of any ad-
+vanced machine learning or artiﬁcial intelligence based trading de-
+cision systems. Cavalcante, Brasileiro, Souza, Nobrega, and Oliveira
+(2016) surveyed the computational intelligence methods, proposed                      Fig. 1. Recurrent reinforcement learning with portfolio allocation signals.
+to solve ﬁnancial market problems, from 2009 to 2015. They spec-
+ify a framework to be followed by most computational intelligence
+approaches, consisting of the following major components: a) data                3. Data and methodology
+preparation (input variables, output variables, acquisition, prepos-
+sessing, normalization); b) algorithm deﬁnition (choose model,                   3.1. Methodology
+conﬁgure architecture); c) training (deﬁne algorithm, adjust pa-
+rameters, perform training); d) model evaluation (deﬁne metrics,                     In this paper, we use the recurrent reinforcement method in
+evaluate accuracy); e) trading strategies; and f) money evalua-                  portfolio optimization with different risk considerations through
+tion. In this survey, the authors note that Chande (2001) identi-                two objective functions. Following Moody et al. (1998), we use the
+ﬁed three characteristics of successful trading strategies: a) a rule            differential Sharpe ratio for dynamic optimization of trading sys-
+set deﬁning entering and exiting trades, b) a risk control method,               tem performance. We use performance functions both to increase
+and c) money management. Other characteristics include taking                    the convergence of the learning process and to adapt to changing
+into account real world constraints such as backtesting with real                market conditions during live trading (see Fig. 1). During this pro-
+transaction costs and slippage. Martinez, da Hora, Palotti, Meira,               cess, the parameter updates can be done during each forward pass
+and Pappa (2009) developed a trading system based on forecast-                   through the training data, and the inﬂuence of the performance
+ing where they used an artiﬁcial neural network (ANN) to fore-                   measure can be computed at any time point. We also assume a
+cast the asset price, and then designed a trading system specifying              small or medium investor who can take ﬁxed or variable sizes of
+the exit and entry rules based on the forecasts. A stop loss strat-              shares of each asset with no price impact in the market but with
+egy based on placing a threshold on negative returns was also in-                a ﬁxed transaction cost.
+corporated to accommodate market condition changes. In a paper
+by Beraldi, Violi, and De Simone (2011), the authors proposed a                  Ft = tanh(xt θ )                                                                  (1)
+trading support system to help investors solving the strategic as-
+set allocation problem. They focused on the system and its mod-                      Before describing the recurrent reinforcement learning ap-
+ules and stages rather than the solution method. The modules in                  proach, we start by comparing the different safety-ﬁrst risk mea-
+their system included data management, statistical analysis, sce-                sures (i.e. the Sharpe ratio, the Sortino ratio, the Calmar ratio, and
+nario simulation, a model generator, a solution kernel and a so-                 the Sterling ratio). The Sharpe ratio is widely used and it was de-
+lutions analysis module. Their decision system integrated many                   veloped based on mean-variance optimization; therefore, its risk
+solution approaches based on statistical and stochastic optimiza-                measure is the standard deviation of returns. The Sortino ratio
+tion with a Monte Carlo simulation of the scenarios. Eilers, Du-                 uses the downside deviation and it includes a target for the in-
+nis, von Mettenheim, and Breitner (2014) developed an automated                  vestment return. The Sterling ratio is used by Moody and Saffell
+trading decision system where they combined an artiﬁcial neural                  (2001) where the authors differentiated the Sterling ratio using
+network with reinforcement learning (RL) and seasonality. The au-                an exponential moving average. Our deﬁnition of the Calmar ra-
+thors trained the ANN using the value iteration method of the RL                 tio includes the expected maximum drawdown which is deﬁned
+while only optimizing the immediate reward. This method simpli-                  by Magdon-Ismail and Atiya (2004), while the basic deﬁnition of
+ﬁes the optimal value function to be only the immediate reward.                  the Calmar ratio is similar to the Sterling ratio in that both use
+The three layers include input neurons, hidden neurons, and one                  the maximum drawdown. The issue here is that the Sterling ratio
+output neuron; and the feed-forward ANN is trained by minimiz-                   is purely empirical, depending on the dataset it is applied to, and
+ing the mean squared error using the back-propagation algorithm.                 lacking the analytical properties needed in RRL. We choose to use
+Feuerriegel and Prendinger (2016) proposed a trading system based                the Calmar ratio deﬁned using the expected maximum drawdown
+on news disclosures where the authors design trading strategies                  because it is consistent, coherent and differentiable by deﬁnition
+that utilize textual news to obtain proﬁts on the basis of novel in-             as it can be seen from the deﬁnition of the expected maximum
+formation entering the market. They developed a system for auto-                 drawdown. The relation between the Sharpe and Calmar ratios is
+mated decision making using supervised and reinforcement learn-                  shown in Figs. 2 and 3. While Fig. 2 shows the relation between
+ing. The system contained two main components: news sentiment                    the Sharpe ratio and the expected maximum drawdown per stan-
+extraction and trading strategy execution. They concluded that a                 dard deviation unit, Fig. 3 shows the relation between the Calmar
+trading system can be improved with additional novel market in-                  ratio with different Sharpe ratio values and a moving time step.
+formation.                                                                       From this construction, the Calmar ratio we use here is consistent
+                                                                                 with Sharpe ratio in a nonlinear way, and it is a statistically coher-
+270                                               S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+
+                                                                                                    T
+                                                                                                    2
+                                                                                                      Shr p2         T →∞              T Shr p2
+                                                                                         CT =                        →
+                                                                                                    ( T
+                                                                                                 Q p 2 Shr p2    )          0.63519 + 0.5 log T + log Shr p
+
+                                                                                          where CT is the Calmar ratio over the time horizon T, E(MDD) is
+                                                                                          the expected maximum drawdown. The functions Qn (x) and Qp (x)
+                                                                                          are complicated integral expansions that do not have a convenient
+                                                                                          analytical form and they are independent from γ , σ and T. Their
+                                                                                          forms can be found in Magdon-Ismail et al. (2003) and in Pratap
+                                                                                          (2004). γ is the mean of the returns and σ is the standard devia-
+                                                                                                                   γ
+                                                                                          tion of returns, Shr p = σ .
+                                                                                              Next, we construct a variable weight portfolio with a reinforce-
+                                                                                          ment learning signal. Let Ft ∈ {−1, 1} be the trading signal with
+                                                                                          only two values. For Ft > 0, the investor would take a long po-
+                                                                                          sition, and we set Ft = 1. For Ft < 0, the investor would then take
+                                                                                          a short position, and we set Ft = −1. θ are the parameters that we
+                                                                                          want to train θ ∈ M+2 where M is the time series that we want
+                                                                                          to trade in. xt is a vector where xt = [1; rt . . . rt−M ; Ft−1 ], rt is the
+                                                                                          log return rt = log( pricet ) − log( pricet−1 ). We calculate the return
+                                                                                          at time t of our position in Eq. (3):
+
+                  Fig. 2. E(MDD) per unit σ vs. the Sharpe ratio.
+                                                                                          Rt = μ ∗ [Ft−1 · rt − δ|Ft − Ft−1 |]                                         (3)
+                                                                                          μ is the number of shares that is a constant number and it can be
+                                                                                          the maximum number of shares one can trade. δ is the transaction
+                                                                                          cost and it is also a constant. Using a risk adjusted measure we
+                                                                                          will maximize the Sharpe ratio in Eq. (4):
+                                                                                                 E[Rt ]
+                                                                                          ST =                                                                         (4)
+                                                                                                   σ
+                                                                                          where E[Rt ] is the mean of the return and σ is the standard devia-
+                                                                                          tion of the returns. The objective function is the deferential of the
+                                                                                          Sharpe ratio and it is calculated by using the average of return and
+                                                                                          standard deviation of the return. Using the chain rule we get Eq.
+                                                                                          (5):
+
+                                                                                                 1
+                                                                                                    T
+                                                                                          A=        Rt
+                                                                                                 T
+                                                                                                  t=1
+
+
+                                                                                                 1 2
+                                                                                                    T
+                                                                                          B=       Rt
+                                                                                                 T
+                                                                                                  t=1
+                                                                                                                                                               
+                                                                                          dST      T
+                                                                                                              dST dA   dST dB    dR dF   dRt dFt−1
+                                                                                              =                      +        }·{ t t +                                (5)
+                                                                                          dθ                  dA dRt   dB dRt    dFt dθ dFt−1 dθ
+                                                                                                   t=1
+                    Fig. 3. Scaling the Calmar ratio with time.
+                                                                                          where we have:
+                                                                                          dRt
+                                                                                              = −μδ · sgn(Ft − Ft−1 )
+ent risk measure as the Sharpe ratio. Its long-term difference from                       dFt
+the Sharpe ratio is evident (see Fig. 3).
+                                                                                           dRt
+    The Calmar ratio (CR) is similar to the Sharpe ratio (SR) in that                           = −μ · rt + μδ.sgn(Ft − Ft−1 )
+it is also a risk adjusted measure of performance. However, it is                         dFt−1
+an MDD risk metric that measures the maximum cumulative loss
+                                                                                          dFt                                               dFt−1
+from a peak to a following bottom. When the downside losses are                               = (1 − tanh(xt θ )2 ) ·         xt + θ M+2
+considered rather than the average deviation from mean return,                            dθ                                                 dθ
+the trading decisions will certainly be different. Here we derive re-                                                                         dFt
+                                                                                          The above equations conclude that                   dθ
+                                                                                                                                                     is recurrent, and the
+ward based on this E(MDD) risk based measure, the Calmar ratio.
+                                                                                          weights are updated by the gradient ascent θi+1 = θi + ρ . dθT , and
+                                                                                                                                                                  dS
+We use the deferential of the Calmar ratio as our objective func-
+tion:                                                                                     ρ is the learning rate. The recurrent reinforcement learning can be
+                                                                                          used to optimize a variable weight portfolio. First we change Eq.
+          γT                                                                              (1) for each asset to Eq. (6):
+CT =                                                                            (2)
+       E (MDD )
+                                                                                          fit = logsig(xit θ i )                                                      (6)
+           ⎧ 2               T →∞ 2                                                       where fit is the action on asset i at time t, and logsig is the log-
+             2σ
+                 Q ( γ T ) → σγ (0.63519
+                       2
+           ⎪
+           ⎪
+           ⎨ γ p 2σ 2            γ                                                        sigmoid transfer function. This then leads to the following equa-
+            +0.5 log T √+ log σ )         ifγ > 0
+E (MDD ) =                                                                                tion:
+           ⎪
+           ⎪1 . 2533 σ     T              ifγ = 0
+           ⎩ −2σ 2     γ 2 T T →∞                                                         dFt                                                dFt−1
+                                      σ
+               γ Qn ( 2σ 2 ) → −γ T − γ   ifγ < 0                                             = (1 − logsig(xt θ )2 ) ·        xt + θ M+2
+                                        2
+                                                                                                                                                                       (7)
+                                                                                          dθ                                                  dθ
+                                           S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                271
+
+
+For a long only portfolio with variable weights, Eq. (8) needs to be               straint, quantity constraint, long only constraint and transaction
+applied for each asset:                                                            cost constraint by combining multi-objective evolutionary (MOEA)
+                                                                                   algorithm with technical indicators, where the indicators are deter-
+Fit = softmax( fit )                                                     (8)
+                                                                                   mined by the MOEA algorithm and the selection method is adap-
+where the softmax function is applied to the actions on all the as-                tive as the stocks selected are changing with time. The stocks
+sets. It will assign weights to each asset and it already includes                 are selected using fundamental indicators, and the trading deci-
+the constraint ni Fit = 1, where n is the number of assets in the                  sions are based on technical indicators. During the testing phase on
+portfolio.                                                                         the S&P 500 stocks, the authors included a 2% of the stock value
+    The decisions from training the parameters θ with a logsig ac-                 as a transaction cost. The proposed method outperforms the in-
+tivation function will result in the choice of a number in the in-                 dex in terms of returns and variance. Liagkouras and Metaxiotis
+terval [0, 1] using a log − sigmoid function. The softmax function is              (2016) suggested that due to the intrinsic multi-objective nature of
+applied to all the assets decision at time t, and it will distribute as-           the constrained portfolio optimization problem, the multi-objective
+set allocation weights and assign the highest weight to the largest                evolutionary algorithms proved to be very useful and effective in
+asset decision and redistribute the weights from high to low ac-                   handling the diﬃculties imposed by the problem in a reasonable
+cording to the decision obtained from the logsig activation func-                  time. Chen, Lin, Zeng, Xu, and Zhang (2017) discussed the exact
+tion. In our case, the portfolio will act closely to the equal weight              algorithms for solving the constrained portfolio optimization prob-
+portfolio except if a decision on an asset is close to zero, then the              lem where they mentioned that the disadvantage of the exact al-
+softmax will redistribute the weight among the other assets so we                  gorithm is that it always needs more computational time and can
+are switching the weights between the assets as we move forward                    ﬁnd an optimal solution only in a speciﬁed time. The authors then
+with decisions. The softmax function is recommended for a portfo-                  presented a heuristic approach which is an extension to the Non-
+lio as discussed in Moody et al. (1998). Here we are deﬁning clearly               dominated Sorting and Local Search (NSLS) based multi-objective
+fit and we are using the softmax out of the training model. The                    evolutionary framework and called it (e-NSLS) in order to solve the
+training and the initial decision are based on the logsig function                 cardinality constrained portfolio optimization problem. They com-
+within the model. This model is sensitive to the number of assets                  pared their method with ﬁve different algorithms (NSGA-II, SPEA-2,
+as with more assets this model will act as an asset selector by as-                MOEA/D-DE, ABC-FC, GRASP-QUAD) and showed that the proposed
+signing variable weights. Due to the similar statistical properties as             method outperforms the other ﬁve algorithms in computational re-
+the Sharpe ratio, the Calmar ratio based recurrent reinforcement                   sults. Moreover, the authors used the Wilcoxon signed ranks test
+learning as an objective function will be similar but substitute ST                analysis to statistically test the signiﬁcant performance of e-NSLS
+with CT in Eqs. (4) and (5) accordingly.                                           with the other algorithms where the results show that the pro-
+                                                                                   posed method outperformed the other algorithms.
+3.2. Portfolio constraints                                                             Although these constrained portfolio optimization problems are
+                                                                                   complex and hard to solve (Chang et al., 20 0 0; Moral-Escudero,
+    In portfolio optimization, practitioners consider some of the                  Ruiz-Torrubiano, & Suárez, 2006), there exist a number of heuristic
+real world constraints in their optimization process such as car-                  search based approaches in the current literature to help practi-
+dinality constraint, ﬂoor and ceiling constraint, round-lot con-                   tioners to address their speciﬁc needs. In this paper, we primarily
+straint, pre-assignment constraint and class constraint. The cardi-                focus on developing an effective RRL trading strategy and a trad-
+nality constraint is used to limit the asset selection in the portfo-              ing system using different objective functions in a dynamic portfo-
+lio to a K number of assets. The ﬂoor and ceiling constraints limit                lio optimization setting. We will direct our attention in an uncon-
+the weight of each asset allocation to certain boundaries. The pre-                strained problem setting in the present study, and yet we do not
+assignment constraint allows the investor to pre-select a desired                  foresee major diﬃculties to combine our proposed approach with
+asset in the portfolio. The round-lot constraint restricts the num-                the exiting heuristic portfolio constraint methods to address spe-
+ber of any asset to an exact multiple of the normal trading lots.                  ciﬁc practical requirements. In fact, one could replace the gradient
+The class constraint limits the proportion invested in assets with                 ascent search in the current RRL optimization with an evolutionary
+common characteristics. In Chang, Meade, Beasley, and Sharaiha                     algorithm using a desirable objective function (e.g. Sharpe ratio or
+(20 0 0), the authors proposed three meta-heuristic algorithms (ge-                Calmar ratio) as the ﬁtness function to optimize portfolio weights
+netic algorithm, simulated annealing, and particle swarm) to solve                 and constraints simultaneously. For future work, we will combine
+the portfolio constraint problems.                                                 evolutionary algorithms with our proposed Calmar RRL model to
+    Many scholars followed Chang et al. (20 0 0) and developed                     investigate the beneﬁt of introducing various portfolio constraints.
+meta-heuristic methods to solve the constrained portfolio opti-
+mization problems. Lwin, Qu, and Kendall (2014) developed a                        3.3. Data collection
+learning guided multi-objective evolutionary algorithm to solve
+the portfolio optimization problem with the cardinality constraint,                   In this study, we construct a ﬁve asset portfolio using ﬁve of the
+ﬂoor and ceiling constraint, pre-assignment constraint and round-                  most commonly traded exchange-traded funds from different as-
+lot constraint. The authors discussed that these constraints are                   set categories. These assets (identiﬁed by their ticker symbols and
+hard to satisfy at any time as the cardinality constraint by-itself                fund names) are as follows:
+is a mixed quadratic integer NP-hard problem and the portfolio                      • IWD: iShares Russell 10 0 0 Value
+selection with round-lot constraint is an NP-complete problem.                      • IWC: iShares Micro-Cap
+The authors compared the performance of their proposed algo-                        • SPY: SPDR S&P 500 ETF
+rithm with four different well-known multi-objective evolutionary                   • DEM: WisdomTree Emerging Markets High Dividend
+algorithms (the Non-dominated Sorting Genetic Algorithm(NSGA-                       • CLY: iShares 10+ Year Credit Bond
+II), the Strength Pareto Evolutionary Algorithm(SPEA-2), Pareto
+Envelope-based Selection Algorithm(PESA-II), Pareto Archived Evo-                     IWD ETF is an equity fund that holds mid and large-cap US
+lution Strategy(PAES)). The proposed method is computationally ef-                 stocks. This ETF tracks the performance of the Russell 10 0 0 value
+ﬁcient and yields a better result over all the four algorithms. In                 index. IWC ETF is a fund that seeks to correspond to the perfor-
+a paper by Silva, Neves, and Horta (2015), the authors solved the                  mance of the Russell micro-cap index. It consists of small cap US
+constrained portfolio optimization problem with cardinality con-                   based companies. SPY ETF tracks the S&P500 index. It represents
+

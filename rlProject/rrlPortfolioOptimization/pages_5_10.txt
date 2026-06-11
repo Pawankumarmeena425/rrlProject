@@ -1,0 +1,357 @@
+                                           S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                271
+
+
+For a long only portfolio with variable weights, Eq. (8) needs to be               straint, quantity constraint, long only constraint and transaction
+applied for each asset:                                                            cost constraint by combining multi-objective evolutionary (MOEA)
+                                                                                   algorithm with technical indicators, where the indicators are deter-
+Fit = softmax( fit )                                                     (8)
+                                                                                   mined by the MOEA algorithm and the selection method is adap-
+where the softmax function is applied to the actions on all the as-                tive as the stocks selected are changing with time. The stocks
+sets. It will assign weights to each asset and it already includes                 are selected using fundamental indicators, and the trading deci-
+the constraint ni Fit = 1, where n is the number of assets in the                  sions are based on technical indicators. During the testing phase on
+portfolio.                                                                         the S&P 500 stocks, the authors included a 2% of the stock value
+    The decisions from training the parameters θ with a logsig ac-                 as a transaction cost. The proposed method outperforms the in-
+tivation function will result in the choice of a number in the in-                 dex in terms of returns and variance. Liagkouras and Metaxiotis
+terval [0, 1] using a log − sigmoid function. The softmax function is              (2016) suggested that due to the intrinsic multi-objective nature of
+applied to all the assets decision at time t, and it will distribute as-           the constrained portfolio optimization problem, the multi-objective
+set allocation weights and assign the highest weight to the largest                evolutionary algorithms proved to be very useful and effective in
+asset decision and redistribute the weights from high to low ac-                   handling the diﬃculties imposed by the problem in a reasonable
+cording to the decision obtained from the logsig activation func-                  time. Chen, Lin, Zeng, Xu, and Zhang (2017) discussed the exact
+tion. In our case, the portfolio will act closely to the equal weight              algorithms for solving the constrained portfolio optimization prob-
+portfolio except if a decision on an asset is close to zero, then the              lem where they mentioned that the disadvantage of the exact al-
+softmax will redistribute the weight among the other assets so we                  gorithm is that it always needs more computational time and can
+are switching the weights between the assets as we move forward                    ﬁnd an optimal solution only in a speciﬁed time. The authors then
+with decisions. The softmax function is recommended for a portfo-                  presented a heuristic approach which is an extension to the Non-
+lio as discussed in Moody et al. (1998). Here we are deﬁning clearly               dominated Sorting and Local Search (NSLS) based multi-objective
+fit and we are using the softmax out of the training model. The                    evolutionary framework and called it (e-NSLS) in order to solve the
+training and the initial decision are based on the logsig function                 cardinality constrained portfolio optimization problem. They com-
+within the model. This model is sensitive to the number of assets                  pared their method with ﬁve different algorithms (NSGA-II, SPEA-2,
+as with more assets this model will act as an asset selector by as-                MOEA/D-DE, ABC-FC, GRASP-QUAD) and showed that the proposed
+signing variable weights. Due to the similar statistical properties as             method outperforms the other ﬁve algorithms in computational re-
+the Sharpe ratio, the Calmar ratio based recurrent reinforcement                   sults. Moreover, the authors used the Wilcoxon signed ranks test
+learning as an objective function will be similar but substitute ST                analysis to statistically test the signiﬁcant performance of e-NSLS
+with CT in Eqs. (4) and (5) accordingly.                                           with the other algorithms where the results show that the pro-
+                                                                                   posed method outperformed the other algorithms.
+3.2. Portfolio constraints                                                             Although these constrained portfolio optimization problems are
+                                                                                   complex and hard to solve (Chang et al., 20 0 0; Moral-Escudero,
+    In portfolio optimization, practitioners consider some of the                  Ruiz-Torrubiano, & Suárez, 2006), there exist a number of heuristic
+real world constraints in their optimization process such as car-                  search based approaches in the current literature to help practi-
+dinality constraint, ﬂoor and ceiling constraint, round-lot con-                   tioners to address their speciﬁc needs. In this paper, we primarily
+straint, pre-assignment constraint and class constraint. The cardi-                focus on developing an effective RRL trading strategy and a trad-
+nality constraint is used to limit the asset selection in the portfo-              ing system using different objective functions in a dynamic portfo-
+lio to a K number of assets. The ﬂoor and ceiling constraints limit                lio optimization setting. We will direct our attention in an uncon-
+the weight of each asset allocation to certain boundaries. The pre-                strained problem setting in the present study, and yet we do not
+assignment constraint allows the investor to pre-select a desired                  foresee major diﬃculties to combine our proposed approach with
+asset in the portfolio. The round-lot constraint restricts the num-                the exiting heuristic portfolio constraint methods to address spe-
+ber of any asset to an exact multiple of the normal trading lots.                  ciﬁc practical requirements. In fact, one could replace the gradient
+The class constraint limits the proportion invested in assets with                 ascent search in the current RRL optimization with an evolutionary
+common characteristics. In Chang, Meade, Beasley, and Sharaiha                     algorithm using a desirable objective function (e.g. Sharpe ratio or
+(20 0 0), the authors proposed three meta-heuristic algorithms (ge-                Calmar ratio) as the ﬁtness function to optimize portfolio weights
+netic algorithm, simulated annealing, and particle swarm) to solve                 and constraints simultaneously. For future work, we will combine
+the portfolio constraint problems.                                                 evolutionary algorithms with our proposed Calmar RRL model to
+    Many scholars followed Chang et al. (20 0 0) and developed                     investigate the beneﬁt of introducing various portfolio constraints.
+meta-heuristic methods to solve the constrained portfolio opti-
+mization problems. Lwin, Qu, and Kendall (2014) developed a                        3.3. Data collection
+learning guided multi-objective evolutionary algorithm to solve
+the portfolio optimization problem with the cardinality constraint,                   In this study, we construct a ﬁve asset portfolio using ﬁve of the
+ﬂoor and ceiling constraint, pre-assignment constraint and round-                  most commonly traded exchange-traded funds from different as-
+lot constraint. The authors discussed that these constraints are                   set categories. These assets (identiﬁed by their ticker symbols and
+hard to satisfy at any time as the cardinality constraint by-itself                fund names) are as follows:
+is a mixed quadratic integer NP-hard problem and the portfolio                      • IWD: iShares Russell 10 0 0 Value
+selection with round-lot constraint is an NP-complete problem.                      • IWC: iShares Micro-Cap
+The authors compared the performance of their proposed algo-                        • SPY: SPDR S&P 500 ETF
+rithm with four different well-known multi-objective evolutionary                   • DEM: WisdomTree Emerging Markets High Dividend
+algorithms (the Non-dominated Sorting Genetic Algorithm(NSGA-                       • CLY: iShares 10+ Year Credit Bond
+II), the Strength Pareto Evolutionary Algorithm(SPEA-2), Pareto
+Envelope-based Selection Algorithm(PESA-II), Pareto Archived Evo-                     IWD ETF is an equity fund that holds mid and large-cap US
+lution Strategy(PAES)). The proposed method is computationally ef-                 stocks. This ETF tracks the performance of the Russell 10 0 0 value
+ﬁcient and yields a better result over all the four algorithms. In                 index. IWC ETF is a fund that seeks to correspond to the perfor-
+a paper by Silva, Neves, and Horta (2015), the authors solved the                  mance of the Russell micro-cap index. It consists of small cap US
+constrained portfolio optimization problem with cardinality con-                   based companies. SPY ETF tracks the S&P500 index. It represents
+272                                                S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+               Table 1                                                                     The standard deviation should not be the only measurement of the
+               Statistical features of the ETFs.
+                                                                                           risk of a given portfolio. For example, a fund accumulating a return
+                 Asset     Mean           Maximum      Average                             between 4% and 6% on average will have a lower standard devia-
+                 name      of returns     drawdown     volume                              tion than a fund accumulating a return between 4% and 14% on
+                 IWD       0.0015         0.1996       2,355,230                           average. In a portfolio with different types of assets of different
+                 IWC       0.0014         0.2714       55,670                              volatilities, the Sharpe ratio will be a setback to the performance
+                 SPY       0.0018         0.1744       78,605,495                          of the portfolio and the decision making process.
+                 DEM       −0.0024        0.5199       315,405
+                                                                                               We use the recurrent reinforcement learning method with the
+                 CLY       0.0 0 02       0.1602       185,953
+                                                                                           deferential Sharpe ratio as the objective function to obtain two dif-
+                                                                                           ferent portfolios: the Sharpe Ratio Equally Weighted (SR-RRL EW)
+all 500 stocks in the index and pays dividends on a quarterly ba-                          Long/Short (L/S) Portfolio, and the Sharpe Ratio Variable Weights
+sis. DEM ETF is a fund that tracks the price and yield of the Wis-                         (SR-RRL VW) Long/Short (L/S) Portfolio.
+domTree emerging markets equity income index, and has an inter-                                We use Eq. (1) as the activation function to get the signals of
+national geographical focus. The CLY ETF is a ﬁxed income asset                            each asset over the training period, and we then use equal weights
+class that follows the investment results of an index consisting of                        and apply the signals to the equal weights. Let n = the number of
+long-term US corporate bonds and dollar dominated bonds with                               assets, and the weight w = 1/n for each asset. This results in:
+remaining maturities more than ten years. We extract the weekly                            
+                                                                                           n
+
+closing prices for each of ﬁve assets from Yahoo Finance using the                              |Fit wit | = 1                                               (10)
+fetch function in MATLAB. The dates are from January 01, 2011                               i
+
+to December 31, 2015. We use three years of weekly returns for                             where i is the number of assets at time t.
+training and two years for testing. Table 1 shows some statistical                             In the combination of the above two portfolios, Ft in Eq. (10) is
+features of the assets selected over the total time horizon of ﬁve                         the signal from Eq. (1) and wt is the weight from Eqs. (6) and
+years.                                                                                     (8). We select four portfolios from the Markowitz eﬃcient fron-
+                                                                                           tier shown in Fig. 4 and the equally weighted buy & hold portfolio
+4. Trading algorithms comparison                                                           to compare them with the different RRL portfolios. Fig. 5 shows
+                                                                                           the SR-RRL equally weighted and variable weights portfolio com-
+    In this section, we ﬁrst compare the performance of three                              pared in terms of cumulative returns with the four portfolios from
+performance ratios as three different objective functions for the                          the eﬃcient frontier using Markowitz mean-variance optimization
+model. This will result in three trading algorithms producing dif-                         namely (minimum variance, maximum return, maximum Sharpe
+ferent trading decisions for the same set of assets, and then we                           ratio and a Pareto optimal) and the buy & hold portfolio. Both of
+can readily assess the merits of each performance ratio in gener-                          the SR-RRL portfolios are outperformed by the Pareto optimal port-
+ating trading signals. The resulting portfolio rebalancing methods                         folio by the end of the investment horizon. In this test we choose
+are: the Sharpe ratio RRL (SR-RRL), the Sterling ratio RRL (TR-RRL),                       μ = 100 and δ = 0 bp which is one basis point per stock traded.
+and the Calmar ratio RRL (CR-RRL).                                                         When examining the return per asset of the SR-equally weighted
+    We show the comparison between the portfolios formulated us-                           long/short portfolio, it shows ﬂuctuation of the asset returns. Since
+ing recurrent reinforcement learning with the Sharpe ratio as the                          it is an equally weighted portfolio, the portfolio is affected by each
+objective function vs. the Calmar ratio as the objective function. In                      asset movement equally. The return per asset conclude that the
+addition, we compare the recurrent reinforcement learning based                            DEM ETF is drawing down our portfolio as it is the only asset that
+portfolios with the buy-and-hold strategy as a baseline benchmark.                         has strong drawdowns within the portfolio. Fig. 6 shows the asset
+We use three years of weekly closing prices (January 01, 2011 - De-                        returns in the buy & hold strategy, indicating that the DEM ETF
+cember 31, 2013) to train our θ for each asset, and two years of                           is causing sharp negative returns. By examining the return of each
+weekly closing prices (January 01, 2014 - December 31, 2015) for                           asset in the SR-variable weights long/short portfolio we conclude
+testing. The value of M is set to 104, the number of weeks in the                          that the portfolio acts closely to the equally weighted portfolio.
+two years of testing data. In order to generate the signals and the                        Since it is based on the same signals, the minor changes are caus-
+weights from the recurrent reinforcement learning model, we set                            ing the portfolio to out-perform due to the higher weight of the
+the number of evaluations for the tanh model to a maximum of                               SPY ETF until week 40 and IWD ETF in weeks 40–100. It is plac-
+10,0 0 0 and for the logsig model to 500. The logsig model at this                         ing less weight on CLY in weeks 60–80, which minimizes the loss
+stage is given a small alteration to the equally weighted portfolio                        caused by the ETF.
+weights due to the number of assets.
+                                                                                           4.2. Sterling ratio recurrent reinforcement learning portfolios
+4.1. Sharpe ratio recurrent reinforcement learning portfolios
+                                                                                              TR-RRL is a model with the objective function as the differential
+    In this model, the objective function that we need to optimize                         of the Sterling ratio introduced in Moody and Saffell (2001). The
+is the Sharpe ratio. The Sharpe ratio is a performance measure that                        output of the model produces trading decisions to maximize the
+can be maximized by maximizing the mean of the return of the                               Sterling ration in Eq. (11). The change of the weights in the model
+portfolio and minimizing the standard deviation of the return. In                          will be based on the gradient of the Sterling ratio. Let
+the SR-RRL we are using the deferential of the Sharpe ratio that is                                  γ
+calculated by averaging the Sharpe ratio. The weights in the model                         TR =                                                              (11)
+                                                                                                   MDD
+will be updated with respect to the gradient of the Sharpe ratio.
+The standard deviation is used as a measure of volatility. The more                        where TR is the Sterling ratio, γ is the mean of the return, and
+the mean returns of the portfolio vary, the higher the volatility. In                      MDD is the maximum drawdown. The deferential of the Sterling
+other words, the volatility will increase if the mean of the returns                       ratio in Moody and Saffell (2001) is calculated empirically by using
+is varying in a positive or negative direction.                                            the exponential moving average of the ratio. The maximum draw-
+                                                                                           down is calculated as follows in Eq. (12):
+       1
+           T
+σ=        (Rt − γ )2                                                             (9)                      1
+                                                                                                                 T
+       T
+          t=1
+                                                                                           MDDT =            min[Rt , 0]2                                    (12)
+                                                                                                          T
+                                                                                                             t=1
+                                              S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                                    273
+
+
+
+
+                                                                    Fig. 4. Eﬃcient frontier portfolios.
+
+
+
+
+                                                 Fig. 5. Portfolio performance RRL with Sharpe ratio (104 weeks).
+
+
+
+                                                                                         folios from the eﬃcient frontier and the buy & hold portfolio. The
+                                                                                         TR-RRL portfolios outperform all the portfolios by the end of the
+                                                                                         investment horizon, where μ = 100 and δ = 0bp.
+
+                                                                                         4.3. Calmar ratio recurrent reinforcement learning portfolios
+
+                                                                                              As in the previous experiment, the training set is three years of
+                                                                                         weekly closing prices and the testing set is two years of weekly
+                                                                                         closing prices. We use the Calmar ratio (deﬁned in Eq. (2)) in-
+                                                                                         stead of the Sharpe ratio to obtain the signals and weights of our
+                                                                                         portfolios, and the objective function is the derivative of the Cal-
+                                                                                         mar ratio. The difference between the two objective functions is
+                                                                                         that the Calmar ratio is more sensitive to extreme losses while the
+                                                                                         Sharpe ratio considers average deviations. Our goal is to identify
+                                                                                         whether the large losses would make differences in the dynamic
+                                                                                         optimization process. Using the expected maximum drawdown in
+                                                                                         the Calmar ratio allows us to increase the number of function eval-
+                                                                                         uations to 10,0 0 0 because the expected maximum drawdown is
+                                                                                         based on the mean and standard deviation of returns where by
+                                                                                         deﬁnition the expected maximum drawdown will not cause a divi-
+                                                                                         sion by zero error. On the other hand, the basic Sterling ratio used
+           Fig. 6. Asset returns buy & hold strategy (104 weeks).
+                                                                                         by Moody will stop at some point due to a division by zero error.
+                                                                                         We need to use a number that is close to zero in the maximum
+                                                                                         drawdown evaluation when computing the minimum of the return
+In order to train this model to have the same number of cycles                           (Rt ) and zero. In this experiment, we test the following two port-
+as the others, we need to choose a number close to zero (e.g.                            folios: the Calmar Ratio Equally Weighted (CR-RRL EW) Long/Short
+0.0 0 01) to avoid division by zero during training when evaluating                      (L/S) Portfolio, and the Calmar Ratio Variable Weights (CR-RRL VW)
+the minimum of the return (Rt ) and zero. We developed two port-                         Long/Short (L/S) Portfolio.
+folios: the Sterling Ratio Equally Weighted (TR-RRL EW) Long/Short                            In Fig. 8, we show the performance of the portfolios developed
+(L/S) Portfolio, and the Sterling Ratio Variable Weight (TR-RRL VW)                      using the recurrent reinforcement learning and the differential Cal-
+Long/Short (L/S) Portfolio. In Fig. 7, the TR-RRL equally weighted                       mar ratio as the objective function where μ = 100 and δ = 0 bp.
+and variable weights portfolios are compared with the four port-                         Where the CR-RRL portfolio is compared with the four portfolios
+274                                         S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+
+
+                                               Fig. 7. Portfolio performance RRL with Sterling ratio (104 weeks).
+
+
+
+
+                                                  Fig. 8. Portfolio performance Calmar ratio RRL (104 weeks).
+
+
+
+          Table 2                                                                   4.4. Transaction cost sensitivity analysis
+          Model training computation time using eight core pro-
+          cessors, 8GB RAM, Windows-64bit, MATLAB.
+                                                                                        It is well-established that when designing a realistic trading
+            Trading strategy   Computational time (HH:MM:SS)                        system, one has to account for all transaction costs (Madhavan,
+            SR-RRL             02:39:39                                             2002; Tetlock, Saar-Tsechansky, & Macskassy, 2008). Although prior
+            TR-RRL             02:37:50                                             studies have conducted trading simulations, many neglect the in-
+            CR-RRL             02:43:19                                             ﬂuence of transaction costs. The primary reason for such omission
+                                                                                    is due to the diﬃculty in estimating realistically different types of
+                                                                                    transaction costs involved, and these costs most likely differ for
+                                                                                    different asset classes and depend on many other market charac-
+                                                                                    teristics. In this section, we examine the impact of trading costs
+                                                                                    on the proﬁtability of different portfolio strategies. Empirical evi-
+                                                                                    dence shows that the average round-trip trading cost of large-cap
+from the eﬃcient frontier and the buy & hold portfolio. The CR-
+                                                                                    stocks on NYSE is at least 20 bps (Chan & Lakonishok, 1997; Keim
+RRL portfolios are superior to the other portfolios over most of the
+                                                                                    & Madhavan, 1998; Mittermayer, 2004). In the cost sensitivity anal-
+investment horizon till the end of the horizon.
+                                                                                    ysis, we applied one-way trading costs of 10, 15, 20, and 25 bps.
+    In Table 2, we show the training computational time for each
+                                                                                    Even with realistic transaction costs of 10 bps per round-trip, the
+model where we used a computer with multiple cores. The com-
+                                                                                    portfolio strategies are superior to the hedge fund industry index
+putational times are presented in the hour, minute, and second
+                                                                                    performance. For transaction costs of 15 bps, the Calmar ratio RRL
+format (HH:MM:SS). We observe that the differences between the
+                                                                                    strategy is on average still proﬁtable, but sustains a substantial loss
+methods in terms of computational time is minimal where they
+                                                                                    potential. In general, these strategies cannot compensate transac-
+differ only in a few minutes. Nevertheless, the TR-RRL method
+                                                                                    tion costs of more than 20 bps. It requires a system level design
+has the least computational training time and the CR-RRL method
+                                                                                    to accommodate high transaction costs and further improve port-
+has the longest training time, and the SR-RRL method sits in be-
+                                                                                    folio performances, which we will discuss in the next section.
+tween the other two. Overall, the computational eﬃciency of all
+                                                                                        In Fig. 9, we compare the Calmar ratio RRL portfolios perfor-
+the strategies are not too far apart from each other since they are
+                                                                                    mance with the Sharpe ratio RRL portfolios. Due to transaction
+all based on the RRL method with the exception of the objective
+                                                                                    costs, the Calmar ratio RRL outperforms the Sharpe ratio RRL in
+function. The choosing of the objective function would affect the
+                                                                                    terms of cumulative returns. We can conclude from the signals
+calculation of the gradient and that would then affect the training
+                                                                                    generated that the Calmar ratio RRL portfolios are changing po-
+of the parameters. In the case that the objective function cannot be
+                                                                                    sitions in some assets less frequently than the Sharpe ratio RRL
+increased in the direction of it’s gradient, the algorithm may stop
+                                                                                    portfolios. This is clearer with the CLY ETF where the portfolio suf-
+at a local maximum with no eﬃcient training of the parameters θ .
+                                         S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279                               275
+
+
+
+
+                                          Fig. 9. Comparison in performance μ = 100, δ = 0 bp (104 weeeks).
+
+
+
+
+                                                  Fig. 10. CLY ETF Signals generated from RRL-Calmar.
+
+
+
+fers from losses due to transaction costs. The consistency in sig-               in Sharpe ratio measure due to the fact that the transaction cost is
+nals means that we are holding the asset at the same position for                affecting the standard deviation of the returns more than the mean
+a longer period of time which reduces the transaction cost. Figs. 10             of the returns due to the high returns generated by the portfo-
+and 11 show clearly the differences of signals generated for the CLY             lio with a low standard deviation. The Sterling ratio based portfo-
+ETF using the Calmar ratio and the Sharpe ratio, respectively. This              lios perform between the Sharpe ratio and the Calmar ratio portfo-
+is reasonable because the Calmar ratio based objective function is               lios both with and without transaction costs. When the transaction
+sensitive to large losses which occur less frequently than in the                cost increases to 15 bps, both the Sharpe ratio and Sterling ratio
+Sharpe ratio. As a result, due to the frequent rebalancing signals               portfolios start to generate negative annualized returns. Under no
+generated from Sharpe ratio objective function, transaction costs                transaction cost, the Calmar ratio based portfolio retains high per-
+are relatively higher compared with the Calmar ratio portfolios.                 formance. Under a high transaction cost (δ = 20 bps), the Sharpe
+    Table 3 shows the Sharpe ratio of each portfolio through back-               ratio based portfolio suffers a large loss, while the Calmar ratio
+testing with both the Sharpe ratio, Sterling ratio and the Calmar                based portfolios performance is impacted only by a slight decrease
+ratio as objective functions. Overall, the Calmar ratio portfolios               in returns. In Section 5, we propose a stop-loss control to the sys-
+outperform the Sharpe ratio and Sterling ratio portfolios consis-                tem to limit the transaction cost effect (see Table 6).
+tently. When the transaction cost increases, the performance of
+the Sharpe ratio based portfolios decreases, while the Calmar ra-                5. Trading system and discussion
+tio based portfolios maintain almost the same performance (see
+Tables 4 and 5). The Calmar ratio portfolios are actually increasing                We develop an adaptive trading system based on the recurrent
+                                                                                 reinforcement learning using three different objective functions.
+276             S. Almahdi, S.Y. Yang / Expert Systems With Applications 87 (2017) 267–279
+
+
+
+
+                          Fig. 11. CLY ETF Signals generated from RRL-Sharpe.
+
+
+
+      Table 3
+      Long-short portfolio comparison with different learning objective functions. Note: EW and VW
+      represent Equally Weighted and Variable Weight strategies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 0 bps)               ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       3.1229     6.31 (3.11)                    0.5080            230
+       Sharpe ratio RRL VW       2.7630     8.24 (4.04)                    0.4363            230
+       Sterling ratio RRL EW     2.3780     12.99 (6.29)                   0.4699            235
+       Sterling ratio RRL VW     2.2816     13.83 (6.69)                   0.5262            235
+       Calmar ratio RRL EW       2.3245     16.39 (7.88)                   0.2721            221
+       Calmar ratio RRL VW       2.1781     19.65 (9.39)                   0.2675            221
+
+
+
+
+      Table 4
+      Long-short portfolio comparison with different learning objective functions and transaction
+      costs (δ = 10 bps). Note: EW and VW represent Equally Weighted and Variable Weight strate-
+      gies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 10 bps)              ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       1.6926     −2.77 (−1.39)                  0.9771            230
+       Sharpe ratio RRL VW       2.0105     −1.55 (−0.78)                  0.8575            230
+       Sterling ratio RRL EW     1.8071     3.67 (1.82)                    0.9968            235
+       Sterling ratio RRL VW     1.5061     3.46 (1.71)                    1.0 0 0 0         235
+       Calmar ratio RRL EW       2.5760     7.63 (3.74)                    0.4914            221
+       Calmar ratio RRL VW       2.3367     9.75 (4.76)                    0.4692            221
+
+
+
+
+      Table 5
+      Long-short portfolio comparison with different learning objective functions and transaction
+      costs (δ = 15 bps). Note: EW and VW represent Equally Weighted and Variable Weight strate-
+      gies, respectively.
+
+       L/S portfolio             Sharpe     Return (%)                     Maximum           Num.
+       (δ = 15 bps)              ratio      accumulative (annualized)      drawdown          of trades
+
+       Sharpe ratio RRL EW       0.4669     −7.31 (−3.72)                  0.9960            230
+       Sharpe ratio RRL VW       0.6165     −6.45 (−3.28)                  0.9878            230
+       Sterling ratio RRL EW     0.3943     −0.99 (−0.50)                  0.9931            235
+       Sterling ratio RRL VW     0.1044     −1.73 (−0.87)                  0.9769            235
+       Calmar ratio RRL EW       2.6433     3.25 (1.61)                    0.7116            221
+       Calmar ratio RRL VW       2.3925     4.79 (2.37)                    0.6619            221
+
